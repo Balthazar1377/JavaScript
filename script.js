@@ -25,26 +25,29 @@ addExpenses = prompt('Перечислите возможные расходы �
 deposit = confirm(Boolean('Есть ли у вас депозит в банке?'));
 console.log(deposit);
 
- let expenses01 = prompt('Введите обязательную статью расходов'),
-amount01 = +prompt('Во сколько это обойдется?'),
-expenses02 = prompt('Введите обязательную статью расходов'),
-amount02 = +prompt(' Во сколько это обойдется?'),
-budgetMonth = money - (amount01 + amount02);
-console.log(budgetMonth);
+const expenses01 = prompt('Введите обязательную статью расходов');
+let amount01 = +prompt('Во сколько это обойдется?');
+const xpenses02 = prompt('Введите обязательную статью расходов');
+let amount02 = +prompt(' Во сколько это обойдется?');
+const budgetMonth = money - (amount01 + amount02);
+console.log('Ваш месячный бюджет:' + budgetMonth);
 
- let missionComplete = Math.ceil(mission / budgetMonth);
-console.log(missionComplete);
+ const missionComplete = Math.ceil(mission / budgetMonth);
+console.log('Вы достигнете цели через:' + missionComplete);
 
-let budgetDayStrict = Math.floor(budgetMonth / 30);
-console.log(budgetDayStrict);
+const budgetDayStrict = Math.floor(budgetMonth / 30);
+console.log('Ваш бюджет на день:' + budgetDayStrict);
 
-if (budgetDay >= 1200){
+if (budgetDayStrict >= 1200){
     alert('У вас высокий уровень дохода');
-} else if (1200 > budgetDay >=600){
+} else if (budgetDayStrict < 1200 && budgetDayStrict >= 600){
     alert('У вас средний уровень дохода');
-} else if (budgetDay < 600){
+} else if (budgetDayStrict < 600 && budgetDayStrict >= 0){
     console.log('К сожалению, ваш уровень дохода ниже среднего');
-} else if (budgetDay < 0){
+} else {
     //Не было сказано, выводить в консоль или на экран
     alert('Что-то пошло не так');    
 }
+
+
+
