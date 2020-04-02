@@ -1,35 +1,35 @@
 'use strict';
-let money = 500,
+const money = prompt('Ваш месячный доход?'),
+    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
+    deposit = confirm(Boolean('Есть ли у вас депозит в банке?')),
     income = 300,
-    addExpenses = '200$ на девушку, 100$ на себя, 50$ на книги',
-    deposit = true;
-const mission = 1500,
+    mission = 1500,
     period = 1;
 
-    const showTypeOf = function(data){
-        console.log(data, typeof data);
-    };
-    showTypeOf(money);
-    showTypeOf(income);
-    showTypeOf(deposit);
+const showTypeOf = function(data){
+    console.log(data, typeof data);
+};
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
 
 console.log(addExpenses.split(', '));
 
-money = prompt('Ваш месячный доход?');
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-deposit = confirm(Boolean('Есть ли у вас депозит в банке?'));
-
 const expenses01 = prompt('Введите обязательную статью расходов'),
-      amount01 = +prompt('Во сколько это обойдется?'),
-      expenses02 = prompt('Введите обязательную статью расходов'),
-      amount02 = +prompt(' Во сколько это обойдется?');
+    amount01 = +prompt('Во сколько это обойдется?'),
+    expenses02 = prompt('Введите обязательную статью расходов'),
+    amount02 = +prompt(' Во сколько это обойдется?');
 
-      const getAccumulatedMonth = function(){
-        return money - (amount01 + amount02);
-    };
-    const accumulatedMonth = getAccumulatedMonth();
+const getExpensesMonth = function(){
+    return amount01 + amount02;
+};
+console.log('Расходы за месяц ' + getExpensesMonth());
 
-const budgetDay = Math.floor(accumulatedMonth / 30);
+const getAccumulatedMonth = function(){
+    return money - getExpensesMonth();
+};
+
+const budgetDay = Math.floor(getAccumulatedMonth() / 30);
 console.log('Ваш бюджет на день:' + budgetDay);
 
 const getStatusIncome = function(){
@@ -45,18 +45,10 @@ const getStatusIncome = function(){
 };
 getStatusIncome();
 
-
-const getExpensesMonth = function(){
-    return amount01 + amount02;
-};
-const consoleExpensesMonth = getExpensesMonth();
-console.log('Расходы за месяц ' + consoleExpensesMonth);
-
 const getTargetMonth = function(){
-    return Math.ceil(mission / accumulatedMonth);
+    return Math.ceil(mission / getAccumulatedMonth());
 };
-const consoleGetTargetMonth = getTargetMonth();
-console.log('Срок достижения цели ' + consoleGetTargetMonth + 'месяцев');
+console.log('Срок достижения цели ' + getTargetMonth() + ' месяцев');
 
 
 
