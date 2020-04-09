@@ -2,76 +2,84 @@
 const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 };
-
-let money;
-const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-    deposit = confirm(Boolean('Есть ли у вас депозит в банке?')),
-    income = 300,
-    mission = 1500,
-    period = 1;
-
-let start = function(){
-    do{
+let money,
+    start = function(){
+        do{
         money = prompt('Ваш месячный доход?');
-    } while (!isNumber(money));
-};
+        } while (!isNumber(money));
+    };
 start();
 
-const showTypeOf = function(data){
-    console.log(data, typeof data);
+let appData = {
+    income: {},
+    addIncome: [],
+    expenses: {},
+    addExpenses: [],
+    deposit: false,
+    mission: 50000,
+    period: 3,
+    budget: money,
+    budgetDay: 0,
+    budgetMonth: 0,
+    expensesMonth: 0,
+    asking: function() {
+        const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        appData.addexpenses = addExpenses.split(', ');
+        appData.deposit = confirm(Boolean('Есть ли у вас депозит в банке?'));
+            for (let i = 0; i < 2; i++){  
+                let amount = 0,
+                    expense = 0; 
+                expense = prompt('Введите обязательную статью расходов');
+                do {
+                    amount = prompt('Во сколько это обойдется?');
+                } while (!isNumber(amount)); 
+                appData.expenses[expense] = amount; 
+            }  
+            console.log(appData.expenses);
+    }
 };
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
+appData.asking();
 
-console.log(addExpenses.split(', '));
-
-let expenses = [];
-
-const getExpensesMonth = function(){
+appData.getExpensesMonth = function(){
     let sum = 0;
-    for (let i = 0; i < 3; i++){  
-        let amount = 0; 
-        expenses[i] = prompt('Введите обязательную статью расходов');
-        do {
-            amount = prompt('Во сколько это обойдется?');
-        } while (!isNumber(amount));
-        sum += +amount;
-    } 
-    console.log(expenses);
-    return sum;
+    for (let key in appData.expenses) {
+        sum += +appData.expenses[key];
+        appData.expensesMonth = sum;
+    }
+    console.log('Расходы за месяц: ' + sum);
 };
-const expensesAmount = getExpensesMonth();
+appData.getExpensesMonth();
 
-console.log('Расходы за месяц ' + expensesAmount);
-
-const getAccumulatedMonth = function(){
-    return money - expensesAmount;
+appData.getBudget = function(){
+    appData.budgetMonth = appData.budget - appData.expensesMonth;
+    appData.budgetDay = Math.round(appData.budgetMonth / 30);
 };
+appData.getBudget();
 
-const budgetDay = Math.floor(getAccumulatedMonth() / 30);
-console.log('Ваш бюджет на день:' + budgetDay);
-
-const getStatusIncome = function(){
-    if (budgetDay >= 1200){
+appData.getStatusIncome = function(){
+    if (appData.budgetDay >= 1200){
         alert('У вас высокий уровень дохода');
-    } else if (budgetDay < 1200 && budgetDay >= 600){
+    } else if (appData.budgetDay < 1200 && appData.budgetDay >= 600){
         alert('У вас средний уровень дохода');
-    } else if (budgetDay < 600 && budgetDay >= 0){
+    } else if (appData.budgetDay < 600 && appData.budgetDay >= 0){
         console.log('К сожалению, ваш уровень дохода ниже среднего');
     } else {
         alert('Что-то пошло не так');    
     }
 };
-getStatusIncome();
+appData.getStatusIncome();
 
-const getTargetMonth = function(){
-    return Math.ceil(mission / getAccumulatedMonth());
+appData.getTargetMonth = function(){
+    return Math.ceil(appData.mission / appData.budgetMonth);
 };
-if (getTargetMonth() >= 0) {
-    console.log('Цель будет достигнута через ' + getTargetMonth() + ' месяцев');
+if (appData.getTargetMonth() >= 0) {
+    console.log('Цель будет достигнута через ' + appData.getTargetMonth() + ' месяцев');
 } else {
     console.log('Цель не будет достигнута');
+}
+
+for(let key in appData) {
+    console.log('Наша программа включает в себя данные: ' + appData[key]);
 }
 
 
