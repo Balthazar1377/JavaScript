@@ -37,8 +37,10 @@ let appData = {
             appData.income[itemIncome] = cashIncome;
         }
 
-
-        const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        let addExpenses;
+        do {
+             addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        } while (addExpenses === null);
         appData.addExpenses = addExpenses.split(', ');
         let forArray = appData.addExpenses.map(function(exp) {
             return exp.charAt(0).toUpperCase() + exp.substr(1);
