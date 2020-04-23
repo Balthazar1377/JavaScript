@@ -22,7 +22,8 @@ let start = document.getElementById('start'),
     additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     incomeItem = document.querySelectorAll('.income-items'),
-    periodAmount = document.querySelector('.period-amount'); 
+    periodAmount = document.querySelector('.period-amount');
+    start.disabled = true; 
 
     let appData = {
         budget: 0,
@@ -37,11 +38,25 @@ let start = document.getElementById('start'),
         deposit: false,
         percentDeposit: 0,
         moneyDeposit: 0,
+        // check: function () {
+        //     let check = start.setAttribute('disabled', 'true'),
+        //         uncheck = start.setAttribute('disabled', 'false');
+        //     if (salaryAmount.value === '') {
+        //         start = check;
+        //     } else {
+        //         start = uncheck;
+        //     }
+
+        // },
+        check: function () {
+            if (salaryAmount.value === '') {
+                start.disabled = true;
+            } else {
+                start.disabled = false;
+            }
+        },
         start: function () {
             appData.budget = +salaryAmount.value;
-            if(salaryAmount.value === '') {
-                start.disabled = true;   
-            } 
             appData.getExpenses();
             appData.getIncome();
             appData.getExpensesMonth();
@@ -95,7 +110,7 @@ let start = document.getElementById('start'),
                 }
             });
             for (let key in appData.income) {
-                appData.incomeMonth += +appData.income[key];
+                appData.incomeMonth += appData.income[key];
             }
         },
         getAddExpenses: function () {
@@ -156,8 +171,12 @@ let start = document.getElementById('start'),
         calcPeriod: function () {
             return appData.budgetMonth * periodSelect.value;
         }
-    };  
+    };
+    salaryAmount.addEventListener('input', appData.check);
+    // salaryAmount.addEventListener('input', appData.check);
     start.addEventListener('click', appData.start);
     expensesPlus.addEventListener('click', appData.addExpensesBlock);
     incomePlus.addEventListener('click', appData.addIncomeBlock);
     periodSelect.addEventListener('input', appData.getRange);
+    // let bind = appData.start.bind(appData);
+    // bind();
