@@ -100,7 +100,7 @@ let start = document.getElementById('start'),
                 }
             });
             for (let key in appData.income) {
-                appData.incomeMonth += appData.income[key];
+                appData.incomeMonth += +appData.income[key];
             }
         },
         getAddExpenses: function () {
@@ -141,7 +141,7 @@ let start = document.getElementById('start'),
             }
         },
         getBudget: function () {
-            appData.budgetMonth = appData.budget + appData.incomeMonth - appData.expensesMonth;
+            appData.budgetMonth = appData.budget + (+appData.incomeMonth) - +appData.expensesMonth;
             appData.budgetDay = Math.ceil(appData.budgetMonth / 30);
         },
         getTargetMonth: function () {
