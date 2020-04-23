@@ -38,16 +38,6 @@ let start = document.getElementById('start'),
         deposit: false,
         percentDeposit: 0,
         moneyDeposit: 0,
-        // check: function () {
-        //     let check = start.setAttribute('disabled', 'true'),
-        //         uncheck = start.setAttribute('disabled', 'false');
-        //     if (salaryAmount.value === '') {
-        //         start = check;
-        //     } else {
-        //         start = uncheck;
-        //     }
-
-        // },
         check: function () {
             if (salaryAmount.value === '') {
                 start.disabled = true;
@@ -173,10 +163,7 @@ let start = document.getElementById('start'),
         }
     };
     salaryAmount.addEventListener('input', appData.check);
-    // salaryAmount.addEventListener('input', appData.check);
     start.addEventListener('click', appData.start);
     expensesPlus.addEventListener('click', appData.addExpensesBlock);
     incomePlus.addEventListener('click', appData.addIncomeBlock);
     periodSelect.addEventListener('input', appData.getRange);
-    // let bind = appData.start.bind(appData);
-    // bind();
