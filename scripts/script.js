@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // eslint-disable-next-line strict
 window.addEventListener('DOMContentLoaded', () => {
     // eslint-disable-next-line strict
@@ -61,8 +62,20 @@ window.addEventListener('DOMContentLoaded', () => {
         };
 
         btnMenu.addEventListener('click', handlermenu);
-        closeBtn.addEventListener('click', handlermenu);
-        menuItems.forEach(elem => elem.addEventListener('click', handlermenu));
+
+        menu.addEventListener('click', event => {
+            let target = event.target;
+            console.log(target);
+            if (target.classList.contains('close-btn')) {
+                menu.classList.toggle('active-menu');
+            }
+
+            target = target.closest('ul>li');
+            if (target) {
+                menu.classList.remove('active-menu');
+            }
+        }
+        );
     };
     toggleMenu();
 
