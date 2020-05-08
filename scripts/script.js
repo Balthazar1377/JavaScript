@@ -71,10 +71,9 @@ window.addEventListener('DOMContentLoaded', () => {
         const popUp = document.querySelector('.popup'),
             popUpContent = popUp.querySelector('.popup-content'),
             popUpBtn = document.querySelectorAll('.popup-btn'),
-            popUpClose = document.querySelector('.popup-close'),
             width = document.documentElement.clientWidth;
-        let count = 0;
         popUpContent.style.opacity = '0';
+        let count = 0;
 
         function animation() {
             if (width > 768) {
@@ -88,19 +87,20 @@ window.addEventListener('DOMContentLoaded', () => {
                 popUp.style.display = 'block';
                 popUpContent.style.opacity = '1';
             }
-
         }
 
         popUpBtn.forEach(elem => {
             elem.addEventListener('click', animation);
         });
 
-        popUpClose.addEventListener('click', () => {
-            popUp.style.display = 'none';
-        });
-
         popUp.addEventListener('click', event => {
             let target = event.target;
+
+            if (target.classList.contains('popup-close')) {
+                popUp.style.display = 'none';
+                count = 0;
+                popUpContent.style.opacity = count;
+            }
             target = target.closest('.popup-content');
 
             if (!target) {
