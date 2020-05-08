@@ -255,4 +255,32 @@ window.addEventListener('DOMContentLoaded', () => {
         startSlide(1500);
     };
     slider();
+
+    //Our team
+    const images = () => {
+        const commandPhoto = document.querySelectorAll('.command__photo');
+        commandPhoto.forEach(elem => {
+            elem.addEventListener('mouseenter', event => {
+                const source = elem.getAttribute('src');
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = source;
+            });
+
+            elem.addEventListener('mouseleave', event => {
+                const source = elem.getAttribute('src');
+                event.target.src = event.target.dataset.img;
+                event.target.dataset.img = source;
+            });
+        });
+    };
+    images();
+
+    //Calculator
+    const calcWrap = document.querySelector('.calc-block'),
+        input = calcWrap.querySelectorAll('input');
+    input.forEach(elem => {
+        elem.addEventListener('input', () => {
+            elem.value = elem.value.replace(/\D/g, ' ');
+        });
+    });
 });
