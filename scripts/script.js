@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line strict
 window.addEventListener('DOMContentLoaded', () => {
@@ -337,23 +338,25 @@ window.addEventListener('DOMContentLoaded', () => {
             message = document.querySelector('.mess');
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem; color: white;';
-        const postData = (body, outputData, errorData) => {
+
+
+        const postData = body => new Promise((resolve, reject) => {
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', () => {
                 if (request.readyState !== 4) {
                     return;
                 }
                 if (request.status === 200) {
-                    outputData();
-
+                    resolve();
                 } else {
-                    errorData(request.status);
+                    reject(request.status);
                 }
             });
             request.open('POST', './server.php');
             request.setRequestHeader('Content-Type', 'application/json');
             request.send(JSON.stringify(body));
-        };
+        });
+
 
         form.forEach(elem => {
             const tel = elem.querySelector('input[type="tel"]');
@@ -367,9 +370,6 @@ window.addEventListener('DOMContentLoaded', () => {
             message.addEventListener('input', () => {
                 message.value = message.value.replace(/[^а-я\s]/ig, '');
             });
-            // message.addEventListener('input', () => {
-            //     message.value = message.value.replace(/[^а-я\s]/ig, '');
-            // });
             elem.addEventListener('submit', event  => {
                 event.preventDefault();
                 elem.appendChild(statusMessage);
@@ -380,20 +380,19 @@ window.addEventListener('DOMContentLoaded', () => {
                     body[key] = val;
                 });
                 const inputs = elem.querySelectorAll('input');
-                postData(body,
-                    () => {
+                postData(body)
+                    .then(() => {
                         statusMessage.textContent = successMessage;
                         inputs.forEach(item => {
                             item.value = '';
                         });
-                    },
-                    error => {
+                    })
+                    .catch(error => {
                         statusMessage.textContent = errorMessage;
                         inputs.forEach(item => {
                             item.value = '';
                         });
-                    }
-                );
+                    });
             });
         });
     };
