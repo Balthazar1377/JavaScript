@@ -336,7 +336,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelectorAll('form'),
             message = document.querySelector('.mess');
         const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem;';
+        statusMessage.style.cssText = 'font-size: 2rem; color: white;';
         const postData = (body, outputData, errorData) => {
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', () => {
