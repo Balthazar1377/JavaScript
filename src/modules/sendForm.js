@@ -5,6 +5,7 @@ const sendForm = () => {
     const form = document.querySelectorAll('form'),
         message = document.querySelector('.mess');
     const statusMessage = document.createElement('div');
+    statusMessage.className = 'message';
     statusMessage.style.cssText = 'font-size: 2rem; color: white;';
 
 
@@ -45,12 +46,18 @@ const sendForm = () => {
                         throw new Error('status network not 200');
                     }
                     statusMessage.textContent = successMessage;
+                    setTimeout(() => {
+                        statusMessage.textContent = '';
+                    }, 300000);
                     inputs.forEach(item => {
                         item.value = '';
                     });
                 })
                 .catch(error => {
                     statusMessage.textContent = errorMessage;
+                    setTimeout(() => {
+                        statusMessage.textContent = '';
+                    }, 300000);
                     inputs.forEach(item => {
                         item.value = '';
                     });

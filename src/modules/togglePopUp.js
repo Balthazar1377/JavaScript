@@ -26,16 +26,18 @@ const togglePopUp = () => {
 
     popUp.addEventListener('click', event => {
         let target = event.target;
-
+        const statusMessage = document.querySelector('.message');
         if (target.classList.contains('popup-close')) {
             popUp.style.display = 'none';
             count = 0;
             popUpContent.style.opacity = count;
+            statusMessage.textContent = '';
         }
         target = target.closest('.popup-content');
 
         if (!target) {
             popUp.style.display = 'none';
+            statusMessage.textContent = '';
         }
     });
 };
