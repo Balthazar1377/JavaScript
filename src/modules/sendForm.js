@@ -24,6 +24,9 @@ const sendForm = () => {
         if(target.closest('.form-name')){
             target.value = target.value.replace(/[^а-я\s]/ig, '');
         }
+        if(target.closest('.top-form')){
+            target.value = target.value.replace(/[^а-я\s]/ig, '');
+        }
         if(target.closest('.mess')){
             target.value = target.value.replace(/[^а-я\s]/ig, '');
         }
