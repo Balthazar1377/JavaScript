@@ -2,8 +2,7 @@ const slider = () => {
 
 
     const slide = document.querySelectorAll('.portfolio-item'),
-        dots = document.querySelector('.portfolio-dots'),
-        btn = document.querySelectorAll('.portfolio-btn');
+        dots = document.querySelector('.portfolio-dots');
 
     const addNewDot = () => {
         const newDot = document.createElement('li');

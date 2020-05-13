@@ -1,7 +1,7 @@
 const togglePopUp = () => {
     const popUp = document.querySelector('.popup'),
         popUpContent = popUp.querySelector('.popup-content'),
-        popUpBtn = document.querySelectorAll('.popup-btn'),
+        inputs = popUp.querySelectorAll('input'),
         width = document.documentElement.clientWidth;
     popUpContent.style.opacity = '0';
     let count = 0;
@@ -20,24 +20,35 @@ const togglePopUp = () => {
         }
     }
 
-    popUpBtn.forEach(elem => {
-        elem.addEventListener('click', animation);
+    document.body.addEventListener('click', event => {
+        const target = event.target;
+        if(target.closest('.popup-btn')){
+            animation();
+        }
     });
 
     popUp.addEventListener('click', event => {
-        let target = event.target;
+        const target = event.target;
         const statusMessage = document.querySelector('.message');
         if (target.classList.contains('popup-close')) {
             popUp.style.display = 'none';
             count = 0;
             popUpContent.style.opacity = count;
-            statusMessage.textContent = '';
+            inputs.forEach(elem => {
+                elem.value = '';
+            });
+            if(statusMessage){
+                statusMessage.textContent = '';
+            }
         }
-        target = target.closest('.popup-content');
-
-        if (!target) {
+        if (!target.closest('.popup-content')) {
             popUp.style.display = 'none';
-            statusMessage.textContent = '';
+            inputs.forEach(elem => {
+                elem.value = '';
+            });
+            if(statusMessage){
+                statusMessage.textContent = '';
+            }
         }
     });
 };

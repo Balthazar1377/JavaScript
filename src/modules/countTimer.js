@@ -1,7 +1,9 @@
 const countTimer = deadline => {
     const timerHours = document.querySelector('#timer-hours'),
         timerMinutes = document.querySelector('#timer-minutes'),
-        timerSeconds = document.querySelector('#timer-seconds');
+        timerSeconds = document.querySelector('#timer-seconds'),
+        timerNumbers = document.querySelector('.timer-numbers'),
+        timerDates = timerNumbers.querySelectorAll('span');
 
 
     const getTimeRemaining = () => {
@@ -19,15 +21,11 @@ const countTimer = deadline => {
         timerHours.textContent = timer.hours;
         timerMinutes.textContent = timer.minutes;
         timerSeconds.textContent = timer.seconds;
-        if (timer.hours < 10) {
-            timerHours.textContent = '0' + timer.hours;
-        }
-        if (timer.minutes < 10) {
-            timerMinutes.textContent = '0' + timer.minutes;
-        }
-        if (timer.seconds < 10) {
-            timerSeconds.textContent = '0' + timer.seconds;
-        }
+        timerDates.forEach(elem => {
+            if(elem.textContent < 10 && !isNaN(elem.textContent)){
+                elem.textContent = '0' + elem.textContent;
+            }
+        });
     };
 
     const checkTimer = () => {

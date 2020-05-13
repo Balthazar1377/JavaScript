@@ -1,8 +1,6 @@
 const toggleMenu = () => {
     const btnMenu = document.querySelector('.menu'),
-        menu = document.querySelector('menu'),
-        closeBtn = document.querySelector('.close-btn'),
-        menuItems = menu.querySelectorAll('ul>li');
+        menu = document.querySelector('menu');
     const handlermenu = () => {
         menu.classList.toggle('active-menu');
     };

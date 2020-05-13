@@ -2,8 +2,7 @@ const sendForm = () => {
     const errorMessage = 'Что-то пошло не так!',
         loadMessage = 'Загрузка...',
         successMessage = 'Спасибо! Мы скоро свяжемся с Вами!';
-    const form = document.querySelectorAll('form'),
-        message = document.querySelector('.mess');
+    const form = document.querySelectorAll('form');
     const statusMessage = document.createElement('div');
     statusMessage.className = 'message';
     statusMessage.style.cssText = 'font-size: 2rem; color: white;';
@@ -17,19 +16,20 @@ const sendForm = () => {
         body: JSON.stringify(body)
     });
 
-
+    document.body.addEventListener('input', event => {
+        const target = event.target;
+        if(target.closest('.form-phone')){
+            target.value = target.value.replace(/[^+\d]/g, '');
+        }
+        if(target.closest('.form-name')){
+            target.value = target.value.replace(/[^а-я\s]/ig, '');
+        }
+        if(target.closest('.mess')){
+            target.value = target.value.replace(/[^а-я\s]/ig, '');
+        }
+    });
+    
     form.forEach(elem => {
-        const tel = elem.querySelector('input[type="tel"]');
-        tel.addEventListener('input', () => {
-            tel.value = tel.value.replace(/[^+\d]/g, '');
-        });
-        const text = elem.querySelector('input[type="text"]');
-        text.addEventListener('input', () => {
-            text.value = text.value.replace(/[^а-я\s]/ig, '');
-        });
-        message.addEventListener('input', () => {
-            message.value = message.value.replace(/[^а-я\s]/ig, '');
-        });
         elem.addEventListener('submit', event  => {
             event.preventDefault();
             elem.appendChild(statusMessage);
@@ -48,7 +48,7 @@ const sendForm = () => {
                     statusMessage.textContent = successMessage;
                     setTimeout(() => {
                         statusMessage.textContent = '';
-                    }, 300000);
+                    }, 5000);
                     inputs.forEach(item => {
                         item.value = '';
                     });
@@ -57,7 +57,7 @@ const sendForm = () => {
                     statusMessage.textContent = errorMessage;
                     setTimeout(() => {
                         statusMessage.textContent = '';
-                    }, 300000);
+                    }, 5000);
                     inputs.forEach(item => {
                         item.value = '';
                     });

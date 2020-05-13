@@ -1,18 +1,23 @@
 const images = () => {
-    const commandPhoto = document.querySelectorAll('.command__photo');
-    commandPhoto.forEach(elem => {
-        elem.addEventListener('mouseenter', event => {
-            const source = elem.getAttribute('src');
-            event.target.src = event.target.dataset.img;
-            event.target.dataset.img = source;
-        });
+    const commandPhoto = document.querySelector('.command');
 
-        elem.addEventListener('mouseleave', event => {
-            const source = elem.getAttribute('src');
+    commandPhoto.addEventListener('mouseover', event => {
+        const target = event.target;
+        if(target.closest('.command__photo')){
+            const source = target.getAttribute('src');
             event.target.src = event.target.dataset.img;
             event.target.dataset.img = source;
-        });
+        }
     });
-};
+    commandPhoto.addEventListener('mouseout', event => {
+        const target = event.target;
+        if(target.closest('.command__photo')){
+            const source = target.getAttribute('src');
+            event.target.src = event.target.dataset.img;
+            event.target.dataset.img = source;
+        }
+    });
+    };
+
 
 export default images;
